@@ -4,7 +4,7 @@ void setup() {
 }
 
 
-float arr[] = {130.81, 146.83, 164.81, 174.61, 196, 220, 246.94, 261.63};
+float arr[] = {130.81, 164.81, 196, 246.94, 261.63};
 bool dir;
 
 
@@ -14,10 +14,10 @@ void loop() {
   int sensorReading = analogRead(A0);
   int octaveSelector = analogRead(A1);
   int amplitudeSelector = analogRead(A2);
-  int thisPitch = map(sensorReading, 720, 930, 0, 8);
+  int thisPitch = map(sensorReading, 720, 930, 0, 5);
   int octave  = map(octaveSelector, 0, 1024, 0, 3);
   int amplitude = map(amplitudeSelector, 0, 1024, 1, 10);
-  if(thisPitch > 7) thisPitch = 7;
+  if(thisPitch > 4) thisPitch = 4;
   if(thisPitch < 0) thisPitch = 0;
   note(arr[thisPitch]);
   playnote(pow(2, octave));
@@ -39,7 +39,7 @@ void note(float key) {
 }
 
 void playnote(int octave) {
-  double y = curr * octave + sin(x) * 10;
+  double y = curr * 4 + sin(x) * 10;
   Serial.println(y);
   tone(9,y, 100);
   if(curr > target && curr - mstep > target)
